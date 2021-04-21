@@ -147,7 +147,8 @@ public class LifecycleProfiler extends AbstractEventSpy {
                     + "#"
                     + sessionProfile.getId());
             LOGGER.info(
-                "Open http://localhost:3000/?projectId={}&sessionId={} to view your Maven build scanner results",
+                "Open http://localhost:3000/?projectId={}&sessionId={} to view your Maven build"
+                    + " scanner results",
                 sessionProfile.getProject().getId(),
                 sessionProfile.getId());
             break;
@@ -226,8 +227,7 @@ public class LifecycleProfiler extends AbstractEventSpy {
       } while (!gitHead.exists());
 
       //noinspection OptionalGetWithoutIsPresent
-      return Files.readAllLines(gitHead.toPath())
-          .stream()
+      return Files.readAllLines(gitHead.toPath()).stream()
           .map(line -> line.replaceFirst(".*/", ""))
           .findFirst()
           .get();
@@ -247,10 +247,7 @@ public class LifecycleProfiler extends AbstractEventSpy {
 
     request.getActiveProfiles().stream().map(profile -> "-P" + profile).forEach(out::add);
 
-    request
-        .getUserProperties()
-        .entrySet()
-        .stream()
+    request.getUserProperties().entrySet().stream()
         .map(entry -> "-D" + entry.getKey() + "=" + entry.getValue())
         .forEach(out::add);
 
