@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-cd $(dirname $0)
+cd "$(dirname "$0")"
 
 status() {
     echo "$(tput bold)>>> $1 <<<$(tput sgr0)"
@@ -9,13 +9,13 @@ status() {
 
 status "1/5 Starting local Mongo container"
 [ -e db ] || mkdir db
-[ "$(docker ps -q -f name=build_scan_db)" = '' ] && docker run -d -v $(pwd)/db:/data/db -P -p 27017:27017 --rm --name build_scan_db mongo
+[ "$(docker ps -q -f name=build_scan_db)" = '' ] && docker run -d -v "$(pwd)"/db:/data/db -P -p 27017:27017 --rm --name build_scan_db mongo
 
 
 status "2/5 Building Maven extension"
 mvn install -q
 
-cp -v target/maven-build-scanner-1.0.0-SNAPSHOT-jar-with-dependencies.jar $(mvn help:evaluate -Dexpression=maven.home -DforceStdout -q)/lib/ext/
+cp -v target/maven-build-scanner-1.0.0-SNAPSHOT-jar-with-dependencies.jar "$(mvn help:evaluate -Dexpression=maven.home -DforceStdout -q)"/lib/ext/
 
 cd server
 

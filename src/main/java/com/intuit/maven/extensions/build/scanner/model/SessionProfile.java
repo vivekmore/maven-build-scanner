@@ -26,12 +26,11 @@ public class SessionProfile {
     return projectProfiles.stream()
         .filter(candidate -> candidate.getProject().equals(project))
         .findFirst()
-        .get();
+        .orElseThrow(RuntimeException::new);
   }
 
   public void setStartTime(long startTime) {
-    this.startTime = startTime;
-    this.endTime = startTime;
+    this.startTime = this.endTime = startTime;
   }
 
   public long getDuration() {

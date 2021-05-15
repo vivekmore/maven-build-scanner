@@ -57,8 +57,8 @@ router.get("/api/v1/session-summaries/:projectId", (req, res) => {
 
 });
 router.get("/api/v1/session-profiles/:projectId/:sessionId", (req, res) => {
-	const projectId = req.params.projectId;
-	const sessionId = req.params.sessionId;
+  const sessionId = req.params.sessionId;
+  const projectId = req.params.projectId;
 	const groupId = projectId.replace(/:.*/, "");
 	const artifactId = projectId.replace(/.*:/, "");
 	SessionProfile.findOne({"project.groupId": groupId, "project.artifactId": artifactId, "id": sessionId})
